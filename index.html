@@ -78,7 +78,7 @@
     var path = d3.geo.path()
         .projection(projection);
 
-    d3.json("/data/usa.json", function(error, boundary) {
+    d3.json("data/usa.json", function(error, boundary) {
       svgBoundary.selectAll("path")
           .data(boundary.features)
           .enter()
@@ -87,7 +87,7 @@
 
     });
 
-    d3.json("/data/states.json", function(error, topologies) {
+    d3.json("data/states.json", function(error, topologies) {
 
       for (var i = 0; i < topologies.length; i++) {
         states[startYear + i * 10] = topojson.feature(topologies[i], topologies[i].objects.stdin);
