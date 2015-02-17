@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Maptime! Borders!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #header {
+      position: absolute;
+    }
+
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <h1>Animated United States borders map</h1>
+    <p></p>
+  </div>
+  <svg></svg>
+  <script>
+    var svg = d3.select("svg");
+
+    d3.json("/data/1790.json", function(error, topology) {
+
+      var states = topojson.feature(topology, topology.objects.stdin);
+
+      var projection = d3.geo.mercator();
+
+      var path = d3.geo.path()
+          .projection(projection);
+
+      svg.append("path")
+          .datum(states)
+          .attr("d", path);
+
+    });
+
+  </script>
+</body>
+</html>

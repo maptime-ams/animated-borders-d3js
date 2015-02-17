@@ -1,0 +1,54 @@
+.chroniton {
+  font: 10px sans-serif;
+  outline:none;
+}
+.chroniton .play-button {
+  fill:#444;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.x.axis, .slider text {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  user-select:none;
+}
+.x.axis path.domain {
+  stroke-width:10;
+  stroke-linecap:round;
+  stroke:#ddd;
+}
+.x.axis path.halo {
+  stroke-width:12;
+  stroke-linecap:round;
+  stroke:#ccc;
+}
+.tick line {
+  stroke:#d0d0d0;
+  stroke-width:1;
+  transform:translate(0px, -5px);
+}
+.slider .handle {
+  fill: #fff;
+  stroke-width:1;
+  stroke:#333;
+}
+.slider .handle, .slider text {
+  cursor: move;
+  cursor: -webkit-grab;
+  transition:fill 200ms ease-in-out;
+}
+.handle:active, .slider text:active {
+  cursor: move;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.slider.brushing .handle {
+  fill: #eee;
+}
+.label {
+  font:bold 12px sans-serif;
+}
