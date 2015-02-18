@@ -1,4 +1,4 @@
-# Animated U.S. states border map with D3.js
+# D3.js - animated U.S. states border map
 
 ## Step 0: Data
 
