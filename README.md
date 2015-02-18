@@ -113,6 +113,9 @@ __After this step, your map should look like this (very white and empty):__
 
 - [Source code](tutorial/1/index.html)
 - [View in browser](http://maptime-ams.github.io/animated-borders-d3js/tutorial/1)
+- Screenshot:
+
+[![](tutorial/1/screenshot.png)](http://maptime-ams.github.io/animated-borders-d3js/tutorial/1)
 
 ## Step 2: Title and header
 
