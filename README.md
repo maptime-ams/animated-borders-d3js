@@ -581,7 +581,7 @@ d3.select("#slider") // (1)
 
 1. Use D3 to select the DIV element `#slider` we've just created
 2. Call Chroniton!
-3. Set Chronitons domain, from `startYear` (1790) to `startYear + 13 * 10 = 1910`
+3. Set Chroniton's domain, from `startYear` (1790) to `startYear + 13 * 10 = 1910`
 4. Just use the year in the slider's label, not the full date
 5. Set Chroniton to be 600 pixels wide
 
