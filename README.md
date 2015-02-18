@@ -373,6 +373,9 @@ __After this step, your map should look like this:__
 
 ## Step 8: Dashed USA coastline
 
+The map will be much easier to read if we would add the U.S. coastline. [Natural Earth](http://www.naturalearthdata.com/) provides a great selection of public domain geo-spatial files, including just the [file we need](data/usa.json).
+
+We don't want the coastline to be too visible, we'll use SVG's [`stroke-dasharray`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) attribute do draw a dashed line. Add the following lines to the page's CSS section:
 
 ```css
 #boundary path {
@@ -380,15 +383,23 @@ __After this step, your map should look like this:__
 }
 ```
 
+And inside the SVG tag, just before `<g id="states"></g>`, add:
+
 ```html
 <g id="boundary"></g>
 ```
 
+To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code with the following lines:
 
-```js
-svgBoundary = d3.select("svg #boundary"),
+```
+var svgStates = d3.select("svg #states"),
+    svgBoundary = d3.select("svg #boundary"),
+    states = {}
+    startYear = 1790,
+    currentYear = startYear;
 ```
 
+Then, just before we load `states.json`, add the following JavaScript:
 
 ```js
 d3.json("data/usa.json", function(error, boundary) {
@@ -399,6 +410,8 @@ d3.json("data/usa.json", function(error, boundary) {
      .attr("d", path)
 });
 ```
+
+I'm sure that part does not need explaining anymore! Let's have a look at the map!
 
 __After this step, your map should look like this:__
 
