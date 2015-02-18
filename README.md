@@ -431,8 +431,6 @@ Add CSS, which will load a webfont from the tutorial's `static` directory, and p
 @font-face {
   font-family: 'Bree Serif';
   src: url("static/BreeSerif-Regular.otf");
-  font-weight: 800;
-  font-style: italic;
 }
 
 h1 {
