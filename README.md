@@ -53,7 +53,7 @@ After 1910, the borders of the states did not change much anymore, so we'll use 
 
 ### Download and convert NHGIS data yourself
 
-_You don't have to download and convert NHGIS data, this tutorial comes with all the data you need. Just skip this section!_
+_You don't have to download and convert NHGIS data, this tutorial comes with all the data you need. You can just skip this section!_
 
 To download and convert the data needed for this tutorial yourself, follow these steps:
 
@@ -109,16 +109,14 @@ Done! Your newly created HTML page should now be available on [http://localhost:
 
 On Windows, you could try to install [Fenix](http://fenixwebserver.com/).
 
-__After this step, your map should look like this:__
+__After this step, your map should look like this (very white and empty):__
 
 - [Source code](tutorial/1/index.html)
 - [View in browser](http://maptime-ams.github.io/animated-borders-d3js/tutorial/1)
-- Screenshot (nice & empty!):
-
-[![](tutorial/1/screenshot.png)](http://maptime-ams.github.io/animated-borders-d3js/tutorial/1)
 
 ## Step 2: Title and header
 
+Now,
 In side your page's `<head>` tag, add a title:
 
 ```
