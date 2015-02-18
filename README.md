@@ -140,15 +140,16 @@ __After this step, your map should look like this:__
 
 ## Step 3: A map! With D3.js!
 
+This is the most important step of all! In this step, we'll add the D3 and TopoJSON JavaScript libraries, an SVG element, and code to load and display a TopoJSON file.
 
-
-
+First, inside the `<head>` element, include two JavaScript libraries:
 
 ```html
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 ```
 
+Also inside the `<head>` element, add some CSS:
 
 ```html
 <style>
@@ -165,7 +166,9 @@ __After this step, your map should look like this:__
 </style>
 ```
 
+This CSS defines the web page's _style_, and without it, our map will never be properly displayed.
 
+Then, right _before_ the `<h1>` tag we've added in the previous step, add an SVG element:
 
 ```html
 <svg>
@@ -173,29 +176,22 @@ __After this step, your map should look like this:__
 </svg>
 ```
 
-
-uitleggen d3.select
-projection
-https://github.com/mbostock/d3/wiki/Geo-Projections#albersUsa
-
-
-.json
-objects.stdin
+Now, for some proper JavaScript! Past the following code inside your HTML file, just before `</body>`:
 
 ```html
 <script>
-  var svgStates = d3.select("svg #states");
+  var svgStates = d3.select("svg #states"); // (1)
 
-  var projection = d3.geo.albersUsa();
+  var projection = d3.geo.albersUsa(); // (2)
 
   var path = d3.geo.path()
-      .projection(projection);
+      .projection(projection);  // (3)
 
-  d3.json("data/states.json", function(error, topologies) {
+  d3.json("data/states.json", function(error, topologies) {  // (4)
 
-    var state = topojson.feature(topologies[0], topologies[0].objects.stdin);
+    var state = topojson.feature(topologies[0], topologies[0].objects.stdin);  // (5)
 
-    svgStates.selectAll("path")
+    svgStates.selectAll("path")  // (6)
         .data(state.features)
         .enter()
       .append("path")
@@ -204,8 +200,16 @@ objects.stdin
 </script>
 ```
 
+Explanation of individual JavaScript lines:
 
+1. Use D3 to select the SVG [group](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g) with id `#states`.
+2. D3 has some map projections built-in. We'll use [Albers USA projection](https://github.com/mbostock/d3/wiki/Geo-Projections#albersUsa), but feel free to experiment with [some of the others](https://github.com/mbostock/d3/wiki/Geo-Projections)!
+3. See http://bost.ocks.org/mike/map/ for more information!
+4. Load `states.json` (JSON array containing 13 decades of U.S. states)
+5. I've used the TopoJSON command line utility to convert NHGIS's Shapefiles to TopoJSON, this is why the objects in the JSON file are inside an object called `stdin`...
+6. See http://bost.ocks.org/mike/map/ for more information!
 
+OK. Maybe you should just open the results in your browser!
 
 __After this step, your map should look like this:__
 
@@ -217,23 +221,25 @@ __After this step, your map should look like this:__
 
 ## Step 4: Scale & position map in browser's center
 
-
-
-remove:
+Replace the following line:
 
 ```js
 var projection = d3.geo.albersUsa();
 ```
 
-update
+With:
+
 ```js
-var width = window.innerWidth,
+var width = window.innerWidth, // (1)
   height = window.innerHeight;
 var projection = d3.geo.albersUsa()
-  .translate([width / 2, height / 2]);
+  .translate([width / 2, height / 2]);  // (2)
 ```
 
+1. Gets the width and height of the browser window
+2. Translates the projection, and sets the center halfway the browser's width and height
 
+The map should now be centered nicely in your browser's window!
 
 __After this step, your map should look like this:__
 
@@ -342,6 +348,7 @@ __After this step, your map should look like this:__
 
 ## Step 7: SVG style for US states
 
+All the previous maps were black. We want a nicer map! Add the following lines of CSS to your webpage's stylesheet:
 
 ```css
 path {
@@ -353,8 +360,6 @@ path {
   stroke-linejoin: round;
 }
 ```
-
-
 
 __After this step, your map should look like this:__
 
