@@ -389,7 +389,7 @@ And inside the SVG tag, just before `<g id="states"></g>`, add:
 <g id="boundary"></g>
 ```
 
-To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code with the following lines:
+To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code (the first block after your opening `<script>` tag)  with the following lines:
 
 ```
 var svgStates = d3.select("svg #states"),
@@ -425,7 +425,7 @@ __After this step, your map should look like this:__
 
 This is Maptime, and we need a Maptime logo! [_Maps for all forever!_](http://maptime.io/). And a better looking font
 
-Add CSS, which will load a webfont from the tutorial's `static` directory, and position the logo properly:
+Add CSS, which will load a webfont from the tutorial's `static` directory, and position the logo properly. Put this somewhere between the `<style> ... </style>` tags:
 
 ```css
 @font-face {
@@ -476,7 +476,28 @@ Include the colors file:
 <script src="static/colors.js"></script>
 ```
 
-And add the following JavaScript after `.attr("d", path)` (and make sure to remove the semicolon on previous line):
+Remove the semicolon after `.attr("d", path)` in the following block of Javascript:
+
+```js
+function update() {
+  svgStates.selectAll("path")
+      .data(states[currentYear].features)
+      .enter()
+    .append("path")
+      .attr("d", path);
+}
+```
+
+and add the following after that line and before the closing `}`:
+
+```js
+.style("fill", function(d, i) {
+  var name = d.properties.STATENAM.replace(" Territory", ""); // (1)
+  return colors[name]; // (2)
+});
+```
+
+And add the following JavaScript after  (and make sure to remove the semicolon on previous line):
 
 ```js
 .style("fill", function(d, i) {
