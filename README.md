@@ -2,17 +2,17 @@
 
 ## Step 0: Data
 
-## Step 1:
+## Step 1: Empty website
 
 After this step, your map should look like this:
 
 - [Source code](tutorial/1/index.html)
 - [View in browser](http://maptime-ams.github.io/animated-borders-d3js/tutorial/1)
-- Screenshot:
+- Screenshot (nice & empty!):
 
 ![](tutorial/1/screenshot.png)
 
-## Step 2:
+## Step 2: Title and header
 
 After this step, your map should look like this:
 
@@ -22,7 +22,7 @@ After this step, your map should look like this:
 
 ![](tutorial/2/screenshot.png)
 
-## Step 3:
+## Step 3: A map! With D3.js!
 
 After this step, your map should look like this:
 
@@ -32,7 +32,7 @@ After this step, your map should look like this:
 
 ![](tutorial/3/screenshot.png)
 
-## Step 4:
+## Step 4: Scale & position map in browsers's center
 
 After this step, your map should look like this:
 
@@ -42,7 +42,7 @@ After this step, your map should look like this:
 
 ![](tutorial/4/screenshot.png)
 
-## Step 5:
+## Step 5: Load all states for all years (1790 - 1910)
 
 After this step, your map should look like this:
 
@@ -52,7 +52,7 @@ After this step, your map should look like this:
 
 ![](tutorial/5/screenshot.png)
 
-## Step 6:
+## Step 6: `update()` function
 
 After this step, your map should look like this:
 
@@ -62,7 +62,7 @@ After this step, your map should look like this:
 
 ![](tutorial/6/screenshot.png)
 
-## Step 7:
+## Step 7: SVG style for US states
 
 After this step, your map should look like this:
 
@@ -72,7 +72,7 @@ After this step, your map should look like this:
 
 ![](tutorial/7/screenshot.png)
 
-## Step 8:
+## Step 8: Dashed USA coastline
 
 After this step, your map should look like this:
 
@@ -82,7 +82,7 @@ After this step, your map should look like this:
 
 ![](tutorial/8/screenshot.png)
 
-## Step 9:
+## Step 9: Nice font, and a Maptime logo
 
 After this step, your map should look like this:
 
@@ -92,7 +92,7 @@ After this step, your map should look like this:
 
 ![](tutorial/9/screenshot.png)
 
-## Step 10:
+## Step 10: Colors, colors, colors!
 
 After this step, your map should look like this:
 
@@ -102,7 +102,7 @@ After this step, your map should look like this:
 
 ![](tutorial/10/screenshot.png)
 
-## Step 11:
+## Step 11: State name tooltips
 
 After this step, your map should look like this:
 
@@ -112,7 +112,7 @@ After this step, your map should look like this:
 
 ![](tutorial/11/screenshot.png)
 
-## Step 12:
+## Step 12: Time slider
 
 After this step, your map should look like this:
 
@@ -122,7 +122,7 @@ After this step, your map should look like this:
 
 ![](tutorial/12/screenshot.png)
 
-## Step 13:
+## Step 13: Animation!
 
 After this step, your map should look like this:
 
