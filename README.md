@@ -116,18 +116,19 @@ __After this step, your map should look like this (very white and empty):__
 
 ## Step 2: Title and header
 
-Now,
-In side your page's `<head>` tag, add a title:
+Now, let's add a page title and a simple header. In side your page's `<head>` tag, add a `<title>` element:
 
-```
+```html
 <title>Maptime AMS #4: Geopolitics, Borders &amp; D3.js!</title>
 ```
 
-The above will give the page a title, which is displayed in your browser's tabs. We want more! We __________
+The above will give the page a title, which is displayed in your browser's tabs. We want more! Right after the `<body>` tag, add the following HTML:
 
 ```html
 <h1>United States in <span id="year">1790</span></h1>
 ```
+
+We'll put the year in a separate span element, so we can change the contents of this element dynamically later.
 
 __After this step, your map should look like this:__
 
