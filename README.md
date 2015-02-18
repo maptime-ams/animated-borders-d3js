@@ -4,7 +4,7 @@ This is a step-by-step tutorial on making an animated map of the changing border
 
 To complete this tutorial, you need two things:
 
-- __A modern browser__, like Firefox, Safari, Chrome, or a recent version of Internet Explorer. I like Chrome, because it's a faster when it comes to SVG rendering and animation..
+- __A modern browser__, like Firefox, Safari, Chrome, or a recent version of Internet Explorer. I like Chrome, because it's a faster when it comes to SVG rendering and animation.
 - __A good text editor__, for example [Sublime Text](http://www.sublimetext.com/), [Textmate](http://macromates.com/) or [Notepad++](http://notepad-plus-plus.org/).
 
 ### D3.js
