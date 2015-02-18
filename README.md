@@ -410,6 +410,10 @@ __After this step, your map should look like this:__
 
 ## Step 9: Nice font, and a Maptime logo
 
+This is Maptime, and we need a Maptime logo! [_Maps for all forever!_](http://maptime.io/). And a better looking font
+
+Add CSS, which will load a webfont from the tutorial's `static` directory, and position the logo properly:
+
 ```css
 @font-face {
   font-family: 'Bree Serif';
@@ -433,6 +437,7 @@ h1 {
 }
 ```
 
+After `</h1>`, add an HTML image tag:
 
 ```html
 <img id="maptime" src="static/maptime.png" />
