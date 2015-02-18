@@ -392,7 +392,7 @@ And inside the SVG tag, just before `<g id="states"></g>`, add:
 <g id="boundary"></g>
 ```
 
-To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code with the following lines:
+To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code (the first block after your opening `<script>` tag)  with the following lines:
 
 ```
 var svgStates = d3.select("svg #states"),
@@ -428,7 +428,7 @@ __After this step, your map should look like this:__
 
 This is Maptime, and we need a Maptime logo! [_Maps for all forever!_](http://maptime.io/). And a better looking font
 
-Add CSS, which will load a webfont from the tutorial's `static` directory, and position the logo properly:
+Add CSS, which will load a webfont from the tutorial's `static` directory, and position the logo properly. Put this somewhere between the `<style> ... </style>` tags:
 
 ```css
 @font-face {
@@ -477,7 +477,28 @@ Include the colors file:
 <script src="static/colors.js"></script>
 ```
 
-And add the following JavaScript after `.attr("d", path)` (and make sure to remove the semicolon on previous line):
+Remove the semicolon after `.attr("d", path)` in the following block of Javascript:
+
+```js
+function update() {
+  svgStates.selectAll("path")
+      .data(states[currentYear].features)
+      .enter()
+    .append("path")
+      .attr("d", path);
+}
+```
+
+and add the following after that line and before the closing `}`:
+
+```js
+.style("fill", function(d, i) {
+  var name = d.properties.STATENAM.replace(" Territory", ""); // (1)
+  return colors[name]; // (2)
+});
+```
+
+And add the following JavaScript after  (and make sure to remove the semicolon on previous line):
 
 ```js
 .style("fill", function(d, i) {
@@ -613,16 +634,6 @@ Chroniton has [playback functionality](https://github.com/tmcw/chroniton#playbac
 
 Chroniton will emit a `change` event each time the slider's position changes (either triggered by the animation, or by the user). Each time this happens, a function is called with the slider's current date as a parameter:
 
-```js
-function(date) {
-  var newYear = Math.ceil((date.getFullYear()) / 10) * 10;
-  if (newYear != currentYear) {
-    currentYear = newYear;
-    svgStates.selectAll("path").remove();
-    update();
-  }
-}
-```
 
 In this function, we'll check whether the slider's date is in a different decade then `currentYear`. If this is the case, we'll remove all SVG paths from `svgStates` (and thereby clearing the map) and we'll update and redraw the map afterwards.
 
