@@ -20,7 +20,7 @@ After this step, your map should look like this:
 - [View in browser](http://maptime-ams.github.io/animated-borders-d3js/tutorial/2)
 - Screenshot:
 
-![](tutorial/2/screenshot.png)
+[![](tutorial/2/screenshot.png)](http://maptime-ams.github.io/animated-borders-d3js/tutorial/2)
 
 ## Step 3: A map! With D3.js!
 
@@ -32,7 +32,7 @@ After this step, your map should look like this:
 
 ![](tutorial/3/screenshot.png)
 
-## Step 4: Scale & position map in browsers's center
+## Step 4: Scale & position map in browser's center
 
 After this step, your map should look like this:
 
