@@ -516,15 +516,16 @@ __After this step, your map should look like this:__
 
 ## Step 12: Time slider
 
-https://github.com/tmcw/chroniton
+[Mapbox](https://www.mapbox.com/)'s [Tom MacWright](https://github.com/tmcw/) has created a very handy time slider plugin for D3, called [Chroniton](https://github.com/tmcw/chroniton). This plugin has [all the functionality we need](http://www.macwright.org/chroniton/example/) for our animated map.
 
-
+Let's use it! Add the two lines below inside the HTML `<head>` element:
 
 ```html
 <script src="static/chroniton.js"></script>
 <link href="static/chroniton.css" rel="stylesheet">
 ```
 
+We need some CSS, too:
 
 ```css
 #slider {
@@ -537,30 +538,32 @@ https://github.com/tmcw/chroniton
 }
 ```
 
+And the slider needs a DIV element to live in. Add this element after our header (`</h1>`):
 
 ```html
 <div id="slider">
 </div>
 ```
 
+To initialize our little Chroniton, add some more JavaScript after, `update();`:
 
 ```js
-d3.select("#slider")
+d3.select("#slider") // (1)
     .call(
-      chroniton()
-        .domain([new Date(startYear, 1, 1), new Date(startYear + (topologies.length - 1) * 10, 1, 1)])
+      chroniton()  // (2)
+        .domain([new Date(startYear, 1, 1), new Date(startYear + (topologies.length - 1) * 10, 1, 1)])  // (3)
         .labelFormat(function(date) {
-          return Math.ceil((date.getFullYear()) / 10) * 10;
+          return Math.ceil((date.getFullYear()) / 10) * 10;  // (4)
         })
-        .width(600)
+        .width(600)  // (5)
     );
 ```
 
-
-
-
-
-
+1. Use D3 to select the DIV element `#slider` we've just created
+2. Call Chroniton!
+3. Set Chronitons domain, from `startYear` (1790) to `startYear + 13 * 10 = 1910`
+4. Just use the year in the slider's label, not the full date
+5. Set Chroniton to be 600 pixels wide
 
 __After this step, your map should look like this:__
 
@@ -622,6 +625,7 @@ __After this step, you're done! And your map should look like this:__
 Congratulations, you've made a map with D3.js! Now, go and make another one! Or, make this one a bit better. Some ideas:
 
 - Nicer colors. You could make older or more Eastern states darker, for example.
+- Chroniton changes it's label at the wrong moment...
 - Resize the map when the [browser resizes](https://developer.mozilla.org/en-US/docs/Web/API/Window.onresize).
 - Use JavaScript to make better functioning state name tooltips.
 - Add cities and places. [Natural Earth](http://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/) has some great open data sets available, and you could try to use [Turf](http://turfjs.org/static/docs/)'s [`turf.inside`](http://turfjs.org/static/docs/module-turf_inside.html) function to only display cities in visible states.
