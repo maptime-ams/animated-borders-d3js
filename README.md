@@ -486,7 +486,7 @@ And add the following JavaScript after `.attr("d", path)` (and make sure to remo
 });
 ```
 
-1. Gets the `STATENAM` property from the GeoJSON object, and remove the string `" Territory"` from the name (that way, we don't have to worry about state names like _Iowa Territory_ but we can use _Iowa_ instread)
+1. Gets the `STATENAM` property from the GeoJSON object, and removes the string `" Territory"` from the name (that way, we don't have to worry about state names like _Iowa Territory_ but we can use _Iowa_ instead!)
 2. Looks up the state name in the colors list
 
 __After this step, your map should look like this:__
