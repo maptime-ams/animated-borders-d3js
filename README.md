@@ -34,11 +34,11 @@ We'll start by cloning or downloading the [`animated-borders-d3js` repository](h
 
     git clone https://github.com/maptime-ams/animated-borders-d3js.git
 
+(If you have GitHub's [Mac](https://mac.github.com/) or [Windows](https://windows.github.com) client installed, you can also easily click the _Clone in Desktop_ button!)
+
 If you don't have Git installed, you should install Git. It's easy. On your Mac, just install [Homebrew](http://brew.sh/) and then type `brew install git`. For installation on Windows, see [git-scm.com](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git#Installing-on-Windows) for more information. And if you're using Linux, you'll probably already have Git installed (and don't need any explaining anyway).
 
-If you have GitHub's [Mac](https://mac.github.com/) or [Windows](https://windows.github.com) client installed, you can also easily click the _Clone in Desktop_ button!
-
-__"I don't want to install Git!" :expressionless:__ You don't have to! You can also just download this tutorial as a [ZIP file](https://github.com/maptime-ams/animated-borders-d3js/archive/gh-pages.zip)!
+__"I don't want to install Git!"__ :expressionless: You don't have to! You can also just download this tutorial as a [ZIP file](https://github.com/maptime-ams/animated-borders-d3js/archive/gh-pages.zip)!
 
 If you've cloned the repository, browse to the tutorial's directory to get started. If you've downloaded the ZIP file, unzip it, and do the same.
 
