@@ -130,6 +130,7 @@
               .labelFormat(function(date) {
                 return Math.ceil((date.getFullYear()) / 10) * 10;
               })
+              .width(600)
               .on('change', function(date) {
                 var newYear = Math.ceil((date.getFullYear()) / 10) * 10;
                 if (newYear != currentYear) {
@@ -141,7 +142,6 @@
               .playButton(true)
               .playbackRate(0.2)
               .loop(true)
-              .width(600)
           );
     });
   </script>
