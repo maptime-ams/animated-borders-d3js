@@ -206,7 +206,7 @@ Explanation of individual JavaScript lines:
 2. D3 has some map projections built-in. We'll use [Albers USA projection](https://github.com/mbostock/d3/wiki/Geo-Projections#albersUsa), but feel free to experiment with [some of the others](https://github.com/mbostock/d3/wiki/Geo-Projections)!
 3. See http://bost.ocks.org/mike/map/ for more information!
 4. Load `states.json` (JSON array containing 13 decades of U.S. states)
-5. I've used the TopoJSON command line utility to convert NHGIS's Shapefiles to TopoJSON, this is why the objects in the JSON file are inside an object called `stdin`...
+5. `topojson.feature` will convert a TopoJSON object to a GeoJSON object. We'll start with just the first element in the TopoJSON array (`topologies[0]` = year 1790). I've used the TopoJSON command line utility to convert NHGIS's Shapefiles to TopoJSON, this is why the objects in the JSON file are inside an object called `stdin`...
 6. See http://bost.ocks.org/mike/map/ for more information!
 
 OK. Maybe you should just open the results in your browser!
@@ -251,14 +251,15 @@ __After this step, your map should look like this:__
 
 ## Step 5: Load all states for all years (1790 - 1910)
 
+Instead of just displaying the first decade of U.S. state shapes (as we did in step 3), we want to later animate through all available data, from 1790 to 1910. To do this, we have to convert all 13 TopoJSON objects in the `topologies` array to GeoJSON.
 
-replace
+Replace:
 
 ```js
 var svgStates = d3.select("svg #states");
 ```
 
-with
+With:
 
 ```js
 var svgStates = d3.select("svg #states"),
@@ -267,13 +268,15 @@ var svgStates = d3.select("svg #states"),
     currentYear = startYear;
 ```
 
-replace
+The code above defines some variables which will help us keep track of the current state of the animation.
+
+Afterwards, replace:
 
 ```js
 var state = topojson.feature(topologies[0], topologies[0].objects.stdin);
 ```
 
-with
+With:
 
 ```js
 for (var i = 0; i < topologies.length; i++) {
@@ -281,23 +284,22 @@ for (var i = 0; i < topologies.length; i++) {
 }
 ```
 
-
-
-replace
+And replace:
 
 ```js
 .data(state.features)
 ```
 
-with
+With
 
 ```js
 .data(states[currentYear].features)
 ```
 
+Now, we'll have an object `states` which contains 13 GeoJSON objects (a list of states per decade), which we can access in the following way:
 
-
-
+- `states[1850]`: GeoJSON objects for all states in 1850,
+- `states[1910]`: GeoJSON objects for all states in 1910
 
 __After this step, your map should look like this:__
 
