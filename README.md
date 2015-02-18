@@ -350,7 +350,7 @@ __After this step, your map should look like this:__
 
 ## Step 7: SVG style for US states
 
-All the previous maps were black. We want a nicer map! Add the following lines of CSS to your webpage's stylesheet:
+All the previous maps were black. We want a nicer map! Add the following lines of CSS to your webpage's stylesheet (inside the `<style>` tag):
 
 ```css
 path {
@@ -479,12 +479,31 @@ __After this step, your map should look like this:__
 
 ## Step 11: State name tooltips
 
+It would be great if we could see the names of the states! Luckily, this is easy with the [SVG title element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)!
 
-add this (make sure to remove the semicolon on previous line)
+Add the following code in the `update()` function after the `style()` function:
 
 ```js
 .append("svg:title")
   .text(function(d) { return d.properties.STATENAM; });
+```
+
+Afterwards, the `update()` function should look like this, with the `svg:title` part in the end:
+
+```
+function update() {
+  svgStates.selectAll("path")
+      .data(states[currentYear].features)
+      .enter()
+    .append("path")
+      .attr("d", path)
+      .style("fill", function(d, i) {
+        var name = d.properties.STATENAM.replace(" Territory", "");
+        return colors[name];
+      })
+    .append("svg:title")
+      .text(function(d) { return d.properties.STATENAM; });
+}
 ```
 
 __After this step, your map should look like this:__
