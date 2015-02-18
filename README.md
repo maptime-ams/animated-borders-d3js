@@ -633,16 +633,6 @@ Chroniton has [playback functionality](https://github.com/tmcw/chroniton#playbac
 
 Chroniton will emit a `change` event each time the slider's position changes (either triggered by the animation, or by the user). Each time this happens, a function is called with the slider's current date as a parameter:
 
-```js
-function(date) {
-  var newYear = Math.ceil((date.getFullYear()) / 10) * 10;
-  if (newYear != currentYear) {
-    currentYear = newYear;
-    svgStates.selectAll("path").remove();
-    update();
-  }
-}
-```
 
 In this function, we'll check whether the slider's date is in a different decade then `currentYear`. If this is the case, we'll remove all SVG paths from `svgStates` (and thereby clearing the map) and we'll update and redraw the map afterwards.
 
