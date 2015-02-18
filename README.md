@@ -30,7 +30,7 @@ There's also a lot of information available about making maps with D3:
 
 ## Let's get started!
 
-We'll start by cloning or downloading the [`animated-borders-d3js` repository](https://github.com/maptime-ams/animated-borders-d3js) from GitHub. If you have Git installed, simply go to your terminal and type
+We'll start by cloning or downloading the [`animated-borders-d3js` repository](https://github.com/maptime-ams/animated-borders-d3js) from GitHub. If you have Git installed, simply go to your terminal and type:
 
     git clone https://github.com/maptime-ams/animated-borders-d3js.git
 
@@ -38,7 +38,8 @@ We'll start by cloning or downloading the [`animated-borders-d3js` repository](h
 
 If you don't have Git installed, you should install Git. It's easy. On your Mac, just install [Homebrew](http://brew.sh/) and then type `brew install git`. For installation on Windows, see [git-scm.com](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git#Installing-on-Windows) for more information. And if you're using Linux, you'll probably already have Git installed (and don't need any explaining anyway).
 
-__"I don't want to install Git!"__ :expressionless: You don't have to! You can also just download this tutorial as a [ZIP file](https://github.com/maptime-ams/animated-borders-d3js/archive/gh-pages.zip)!
+- __I don't want to install Git!__
+- You don't have to! You can also just download this tutorial as a [ZIP file](https://github.com/maptime-ams/animated-borders-d3js/archive/gh-pages.zip)!
 
 If you've cloned the repository, browse to the tutorial's directory to get started. If you've downloaded the ZIP file, unzip it, and do the same.
 
@@ -52,39 +53,38 @@ After 1910, the borders of the states did not change much anymore, so we'll use 
 
 ### Download and convert NHGIS data yourself
 
-You can use [the NHGIS Data Finder](https://data2.nhgis.org/main) to select the data you need
+_You don't have to download and convert NHGIS data, this tutorial comes with all the data you need. Just skip this section!_
 
-https://github.com/substack/shp2json
+To download and convert the data needed for this tutorial yourself, follow these steps:
 
-npm install -g shp2json
+1. Get Shapefiles with state data, per year
+  - You can use [the NHGIS Data Finder](https://data2.nhgis.org/main) to select the data you need,
+  - Or simply download [`animated-borders-d3js.zip`](https://dl.dropboxusercontent.com/u/12905316/maptime/4/animated-borders-d3js.zip) from Maptime Amsterdam's Dropbox
+2. Move/copy the zipped Shapefiles to the data directory (the files should be named `nhgis0001_shapefile_tl2000_us_state_XXXX.zip`)
+3. Convert the Shapefiles to [TopoJSON](https://github.com/mbostock/topojson/wiki)!
 
+To do this, you need to install [shp2json](https://github.com/substack/shp2json) and TopoJSON, and you need [Node.js](http://nodejs.org/).
 
-npm install -g topojson
+    brew install node
+    npm install -g shp2json
+    npm install -g topojson
 
+Afterwards, you can convert a Shapefile to TopoJSON by running shp2json and piping its output to TopoJSON:
 
-shp2json $f | topojson -p STATENAM -s 1e-6 -o ../data/$year.json
+    shp2json <shapefile> | topojson -p STATENAM -s 1e-6
 
-shp2json shapefile.zip | topojson -q 1e3 -o output.json
+Or, run `shp2topojson.sh`, a convenient script that comes with this tutorial:
 
+    cd scripts
+    ./shp2topojson.sh
 
+### Use data in tutorial's data directory
 
-
-cd scripts
-node index -i ~/Downloads/nhgis0001_shape -o ../../data
-
-
-###
-
-https://dl.dropboxusercontent.com/u/12905316/maptime/4/animated-borders-d3js.zip
-
-animated-borders-d3js.zip contains zipped Shapefiles. If you unzip animated-borders-d3js.zip to the tutorial's data
+Done! But you should have a look at the [TopoJSON](https://github.com/mbostock/topojson/wiki) files in the `data` directory, either with your text editor, or [on GitHub](data/1840.json) (GitHub lets you even view GeoJSON files!).
 
 ## Step 1: Empty website
 
-Browse to the tutorial's directory,
-
-animated-borders-d3js
-This directory should contain four subdirectories (`data`, `scripts`, `static`, `tutorial`), and one file (`README.md`). In this directory, next to `README.md`, create a new, empty file named `index.html`. This HTML file will contain the website with animated map. Let's start with a very basic website:
+Browse to the tutorial's directory. This directory should contain four subdirectories (`data`, `scripts`, `static`, `tutorial`), and one file (`README.md`). In this directory, next to `README.md`, create a new, empty file named `index.html`. This HTML file will contain the website with animated map. Let's start with some very simple HTML, pasting this in `index.html`, and saving the file:
 
 ```html
 <!DOCTYPE html>
@@ -99,17 +99,15 @@ This directory should contain four subdirectories (`data`, `scripts`, `static`, 
 </html>
 ```
 
-Great! You've made a website! Now, we can view this website in the browser, by double clicking on the HTML file.
+Great! You've made a website! Now, we can view this website in the browser, by double clicking on the HTML file. _But this is not enough!_ Our HTML file will load external JSON (the state boundaries), and most browsers will not allow doing this using the `file://` protocol (which is what your browser will use then viewing local files).
 
+__We need a web server!__ On Mac or Linux, use the terminal to go to the tutorial's directory, and type:
 
     python -m SimpleHTTPServer
-    nserve
 
-https://github.com/andrewpthorp/simple-http-server
+Done! Your newly created HTML page should now be available on [http://localhost:8000/](http://localhost:8000/)!
 
-open http://localhost:8000/
-
-developer tools
+On Windows, you could try to install [Fenix](http://fenixwebserver.com/).
 
 __After this step, your map should look like this:__
 
