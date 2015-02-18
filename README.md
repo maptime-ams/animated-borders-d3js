@@ -509,7 +509,7 @@ Add the following code in the `update()` function after the `style()` function:
 
 Afterwards, the `update()` function should look like this, with the `svg:title` part in the end:
 
-```
+```js
 function update() {
   svgStates.selectAll("path")
       .data(states[currentYear].features)
