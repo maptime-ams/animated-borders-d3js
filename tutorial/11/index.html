@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Maptime AMS #4: Geopolitics, Borders &amp; D3.js!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="../../js/colors.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    @font-face {
+      font-family: 'Bree Serif';
+      src: url("../../fonts/BreeSerif-Regular.otf");
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    h1 {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: 'Bree Serif';
+      font-size: 35px;
+    }
+
+    #maptime {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    path {
+      stroke: #666;
+      fill: none;
+      fill-opacity: 0.6;
+      stroke-width: 1px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #boundary path {
+      stroke-dasharray: 3, 5;
+    }
+  </style>
+</head>
+<body>
+  <svg>
+    <g id="boundary"></g>
+    <g id="states"></g>
+  </svg>
+  <h1>United States in <span id="year">1790</span></h1>
+  <img id="maptime" src="../../images/maptime.png" />
+  <script>
+    var svgStates = d3.select("svg #states"),
+        svgBoundary = d3.select("svg #boundary"),
+        states = {}
+        startYear = 1790,
+        currentYear = startYear;
+
+    var width = window.innerWidth,
+        height = window.innerHeight;
+
+    var projection = d3.geo.albersUsa()
+        .translate([width / 2, height / 2]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    d3.json("../../data/usa.json", function(error, boundary) {
+      svgBoundary.selectAll("path")
+          .data(boundary.features)
+          .enter()
+        .append("path")
+          .attr("d", path)
+    });
+
+    d3.json("../../data/states.json", function(error, topologies) {
+
+      for (var i = 0; i < topologies.length; i++) {
+        states[startYear + i * 10] = topojson.feature(topologies[i], topologies[i].objects.stdin);
+      }
+
+      function update() {
+        svgStates.selectAll("path")
+            .data(states[currentYear].features)
+            .enter()
+          .append("path")
+            .attr("d", path)
+            .style("fill", function(d, i) {
+              var name = d.properties.STATENAM.replace(" Territory", "");
+              return colors[name];
+            })
+          .append("svg:title")
+            .text(function(d) { return d.properties.STATENAM; });
+      }
+
+      update();
+    });
+  </script>
+</body>
+</html>

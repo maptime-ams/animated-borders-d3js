@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Maptime! Borders!</title>
+	<title>Maptime AMS #4: Geopolitics, Borders &amp; D3.js!</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -13,10 +13,6 @@
       padding: 0;
     }
 
-    #header {
-      position: absolute;
-    }
-
     svg {
       position: absolute;
       width: 100%;
@@ -25,33 +21,32 @@
   </style>
 </head>
 <body>
-  <div id="header">
-    <h1>Animated United States borders map</h1>
-    <p></p>
-  </div>
-  <svg></svg>
+  <svg>
+    <g id="states"></g>
+  </svg>
+  <h1>United States in <span id="year">1790</span></h1>
   <script>
-    var svg = d3.select("svg");
+    var svgStates = d3.select("svg #states");
 
     var width = window.innerWidth,
         height = window.innerHeight;
 
-    d3.json("/data/1790.json", function(error, topology) {
+    var projection = d3.geo.albersUsa()
+        .translate([width / 2, height / 2]);
 
-      var states = topojson.feature(topology, topology.objects.stdin);
+    var path = d3.geo.path()
+        .projection(projection);
 
-      var projection = d3.geo.albersUsa()
-          .translate([width / 2, height / 2]);
+    d3.json("../../data/states.json", function(error, topologies) {
 
-      var path = d3.geo.path()
-          .projection(projection);
+      var state = topojson.feature(topologies[0], topologies[0].objects.stdin);
 
-      svg.append("path")
-          .datum(states)
+      svgStates.selectAll("path")
+          .data(state.features)
+          .enter()
+        .append("path")
           .attr("d", path);
-
     });
-
   </script>
 </body>
 </html>

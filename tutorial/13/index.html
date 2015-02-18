@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Maptime! Borders!</title>
+	<title>Maptime AMS #4: Geopolitics, Borders &amp; D3.js!</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
-  <script src="js/colors.js"></script>
-  <script src="js/chroniton.js"></script>
-  <link href="css/chroniton.css" rel="stylesheet">
+  <script src="../../js/colors.js"></script>
+  <script src="../../js/chroniton.js"></script>
+  <link href="../../css/chroniton.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
     }
 
-    #header {
+    @font-face {
+      font-family: 'Bree Serif';
+      src: url("../../fonts/BreeSerif-Regular.otf");
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    h1 {
       position: absolute;
+      left: 20px;
+      top: 20px;
+      font-family: 'Bree Serif';
+      font-size: 35px;
+    }
+
+    #maptime {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+
+    #slider {
+      position: absolute;
+      left: 50%;
+      margin-left: -300px;
+      bottom: 20px;
+      width: 600px;
+      height: 50px;
     }
 
     svg {
@@ -27,41 +53,28 @@
     }
 
     path {
-      stroke: #333;
+      stroke: #666;
       fill: none;
       fill-opacity: 0.6;
       stroke-width: 1px;
-      stroke-opacity: 0.5;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     #boundary path {
-      stroke-dasharray: 5, 5;
+      stroke-dasharray: 3, 5;
     }
-
-    #slider {
-      position: absolute;
-      width: 600px;
-      bottom: 40px;
-      left: 10px;
-      height: 50px;
-    }
-
   </style>
 </head>
 <body>
-  <div id="header">
-    <h1>Animated United States borders map</h1>
-    <p></p>
-  </div>
   <svg>
     <g id="boundary"></g>
     <g id="states"></g>
   </svg>
+  <h1>United States in <span id="year">1790</span></h1>
+  <img id="maptime" src="../../images/maptime.png" />
   <div id="slider">
   </div>
-
   <script>
     var svgStates = d3.select("svg #states"),
         svgBoundary = d3.select("svg #boundary"),
@@ -78,33 +91,37 @@
     var path = d3.geo.path()
         .projection(projection);
 
-    d3.json("data/usa.json", function(error, boundary) {
+    d3.json("../../data/usa.json", function(error, boundary) {
       svgBoundary.selectAll("path")
           .data(boundary.features)
           .enter()
         .append("path")
           .attr("d", path)
-
     });
 
-    d3.json("data/states.json", function(error, topologies) {
+    d3.json("../../data/states.json", function(error, topologies) {
 
       for (var i = 0; i < topologies.length; i++) {
         states[startYear + i * 10] = topojson.feature(topologies[i], topologies[i].objects.stdin);
       }
 
-      svgStates.selectAll("path")
-          .data(states[currentYear].features)
-          .enter()
-        .append("path")
-          .attr("d", path)
-          .style("fill", function(d, i) {
-            var name = d.properties.STATENAM.replace(" Territory", "");
-            return colors[name];
-          })
-        .append("svg:title")
-          .text(function(d) { return d.properties.STATENAM; });
+      function update() {
+        svgStates.selectAll("path")
+            .data(states[currentYear].features)
+            .enter()
+          .append("path")
+            .attr("d", path)
+            .style("fill", function(d, i) {
+              var name = d.properties.STATENAM.replace(" Territory", "");
+              return colors[name];
+            })
+          .append("svg:title")
+            .text(function(d) { return d.properties.STATENAM; });
 
+        d3.select("#year").html(currentYear);
+      }
+
+      update();
 
       d3.select("#slider")
           .call(
@@ -117,31 +134,16 @@
                 var newYear = Math.ceil((date.getFullYear()) / 10) * 10;
                 if (newYear != currentYear) {
                   currentYear = newYear;
-
                   svgStates.selectAll("path").remove();
-
-                  svgStates.selectAll("path")
-                      .data(states[currentYear].features)
-                      .enter()
-                    .append("path")
-                      .attr("d", path)
-                      .style("fill", function(d, i) {
-                        var name = d.properties.STATENAM.replace(" Territory", "");
-                        return colors[name];
-                      })
-                    .append("svg:title")
-                      .text(function(d) { return d.properties.STATENAM; });
-
-
+                  update();
                 }
-
               })
               .playButton(true)
               .playbackRate(0.2)
               .loop(true)
-              .width(600));
+              .width(600)
+          );
     });
-
   </script>
 </body>
 </html>
