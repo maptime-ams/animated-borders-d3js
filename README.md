@@ -453,26 +453,27 @@ __After this step, your map should look like this:__
 
 ## Step 10: Colors, colors, colors!
 
-https://github.com/mbostock/d3/wiki/Ordinal-Scales
-http://colorbrewer2.org/
+First our map was black, and later it turned white with a gray outline. Now, it's time for some colors. D3 has [great color scales built in](https://github.com/mbostock/d3/wiki/Ordinal-Scales), but it's not too easy to make sure two neighbouring states do not get the same colors. [Algorithms](http://en.wikipedia.org/wiki/Graph_coloring) which makes sure this won't happen do exist, but it's much easier to manually assign each state with its own color (Mike Bostock does this as well in his [Let’s Make a Map](http://bost.ocks.org/mike/map/) tutorial).
 
+I've created a separate file, which contains a color for each state. I've used colors from the D3 scales, but you should also have a look at [ColorBrewer](http://colorbrewer2.org/).
+
+Include the colors file:
 
 ```html
 <script src="static/colors.js"></script>
 ```
 
-
-
-
-add this (make sure to remove the semicolon on previous line)
+And add the following JavaScript after `.attr("d", path)` (and make sure to remove the semicolon on previous line):
 
 ```js
 .style("fill", function(d, i) {
-  var name = d.properties.STATENAM.replace(" Territory", "");
-  return colors[name];
+  var name = d.properties.STATENAM.replace(" Territory", ""); // (1)
+  return colors[name]; // (2)
 });
 ```
 
+1. Gets the `STATENAM` property from the GeoJSON object, and remove the string `" Territory"` from the name (that way, we don't have to worry about state names like _Iowa Territory_ but we can use _Iowa_ instread)
+2. Looks up the state name in the colors list
 
 __After this step, your map should look like this:__
 
