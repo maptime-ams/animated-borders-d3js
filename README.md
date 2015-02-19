@@ -493,7 +493,7 @@ function update() {
 }
 ```
 
-1. Sets the `style` attribute of each seperate state
+1. Sets the `style` attribute of each separate state
 2. Gets the `STATENAM` property from the GeoJSON object, and removes the string `" Territory"` from the name (that way, we don't have to worry about state names like _Iowa Territory_ but we can use _Iowa_ instead!)
 3. Looks up the state name in the colors list
 
