@@ -266,7 +266,7 @@ With:
 
 ```js
 var svgStates = d3.select("svg #states"),
-    states = {}
+    states = {},
     startYear = 1790,
     currentYear = startYear;
 ```
@@ -397,7 +397,7 @@ To draw the coastline shape in the SVG group we just created, we need D3 to sele
 ```
 var svgStates = d3.select("svg #states"),
     svgBoundary = d3.select("svg #boundary"),
-    states = {}
+    states = {},
     startYear = 1790,
     currentYear = startYear;
 ```
