@@ -428,7 +428,7 @@ __After this step, your map should look like this:__
 
 This is Maptime, and we need a Maptime logo! [_Maps for all forever!_](http://maptime.io/). And a better looking font
 
-Add CSS to load a webfont from the tutorial's `static` directory (you should try to never use (http://fontfeed.com/archives/google-webfonts-the-spy-inside/)[Google Fonts]!), and position the logo properly. Put this somewhere between the `<style> ... </style>` tags:
+Add CSS to load a webfont from the tutorial's `static` directory (you should try to never use [Google Fonts](http://fontfeed.com/archives/google-webfonts-the-spy-inside/)!), and position the logo properly. Put this somewhere between the `<style> ... </style>` tags:
 
 ```css
 @font-face {
