@@ -392,9 +392,9 @@ And inside the SVG tag, just before `<g id="states"></g>`, add:
 <g id="boundary"></g>
 ```
 
-To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code (just after the `<script>` tag) with the following lines:
+To draw the coastline shape in the SVG group we just created, we need D3 to select it. Replace the variable initialization code (the code just after the `<script>` tag) with the following lines:
 
-```
+```js
 var svgStates = d3.select("svg #states"),
     svgBoundary = d3.select("svg #boundary"),
     states = {},
@@ -426,7 +426,7 @@ __After this step, your map should look like this:__
 
 ## Step 9: Nice font, and a Maptime logo
 
-This is Maptime, and we need a Maptime logo! [_Maps for all forever!_](http://maptime.io/). And a better looking font
+This is Maptime, and we need a Maptime logo! [_Maps for all forever_](http://maptime.io/)! And a better looking font
 
 Add CSS to load a webfont from the tutorial's `static` directory (you should try to never use [Google Fonts](http://fontfeed.com/archives/google-webfonts-the-spy-inside/)!), and position the logo properly. Put this somewhere between the `<style> ... </style>` tags:
 
@@ -469,7 +469,7 @@ __After this step, your map should look like this:__
 
 First our map was black, and later it turned white with a gray outline. Now, it's time for some colors. D3 has [great color scales built in](https://github.com/mbostock/d3/wiki/Ordinal-Scales), but it's not too easy to make sure two neighbouring states do not get the same colors. [Algorithms](http://en.wikipedia.org/wiki/Graph_coloring) which makes sure this won't happen do exist, but it's much easier to manually assign each state with its own color (Mike Bostock does this as well in his [Let’s Make a Map](http://bost.ocks.org/mike/map/) tutorial).
 
-I've created a separate file, which contains a color for each state. I've used colors from the D3 scales, but you should also have a look at [ColorBrewer](http://colorbrewer2.org/).
+I've created a separate file, [`colors.js`](static/colors.js), which contains a color for each state. I've used colors from the D3 scales, but you should also have a look at [ColorBrewer](http://colorbrewer2.org/).
 
 Include the colors file:
 
@@ -493,7 +493,7 @@ function update() {
 }
 ```
 
-1. Sets the `style` attribute of each separate state
+1. Sets the `fill` SVG style attribute of each separate state
 2. Gets the `STATENAM` property from the GeoJSON object, and removes the string `" Territory"` from the name (that way, we don't have to worry about state names like _Iowa Territory_ but we can use _Iowa_ instead!)
 3. Looks up the state name in the colors list
 
