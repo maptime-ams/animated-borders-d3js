@@ -645,6 +645,7 @@ __After this step, you're done! And your map should look like this:__
 Congratulations, you've made a map with D3.js! Now, go and make another one! Or, make this one a bit better. Some ideas:
 
 - Nicer colors. You could make older or more Eastern states darker, for example.
+- Or use TopoJSON to pick the right colors, as described by [Jason Davies](http://bl.ocks.org/jasondavies/4188334).
 - Make the slider change it's label at a better moment...
 - Resize the map when the [browser resizes](https://developer.mozilla.org/en-US/docs/Web/API/Window.onresize).
 - Use JavaScript to make better functioning state name tooltips.
