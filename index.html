@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="static/colors.js"></script>
+  <script src="static/chroniton.js"></script>
+  <link href="static/chroniton.css" rel="stylesheet">
+
+  <style>
+  body {
+  	align-items:center;
+
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  path {
+	  stroke: #666;
+	  fill: none;
+	  fill-opacity: 0.6;
+	  stroke-width: 1px;
+	  stroke-linecap: round;
+	  stroke-linejoin: round;
+  }	
+
+	#boundary path {
+		  stroke-dasharray: 3, 5;
+	}
+  #slider {
+  position: absolute;
+  left: 50%;
+  margin-left: -300px;
+  bottom: 20px;
+  width: 600px;
+  height: 50px;
+}
+</style>
+</head>
+
+
+<body>
+<svg>
+  <g id="boundary"></g>
+  <g id="states"></g>
+</svg>
+<div id="slider">
+</div>
+	<h1>USA <span id="year"></span></h1>
+	<script>
+  var svgStates = d3.select("svg #states");
+  var svgBoundary = d3.select("svg #boundary")
+  var states = {};
+  var startYear = 1790;
+  var currentYear = startYear; // (1)
+
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+
+  var projection = d3.geo.albersUsa()
+  	.translate([ (width/2) , (height/2) ]); // (2)
+
+  var path = d3.geo.path()
+      .projection(projection);  // (3)
+
+d3.json("data/usa.json", function(error, boundary) {
+ svgBoundary.selectAll("path")
+     .data(boundary.features)
+     .enter()
+   .append("path")
+     .attr("d", path)
+});
+
+  d3.json("data/states.json", function(error, topologies) {  // (4)
+
+
+  	for(var i = 0; i < topologies.length; i++){
+  		states[startYear + i * 10] = topojson.feature(topologies[i],topologies[i].objects.stdin)
+  	}
+
+
+    function update () {
+        svgStates.selectAll("path")
+              // (6)
+            .data(states[currentYear].features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .style("fill", function(d,i){
+              console.log(d,i)
+              var name = d.properties.STATENAM.replace(" Territory", "");
+              return colors[name];
+            })
+            .on("mouseover", function(d,i){
+              // console.log(d3.select(d));
+              console.log(this);
+              var that = d;
+              d3.select("svg #states")
+                .append("text")
+                .text(function(){return that.properties.STATENAM})
+                // .attr("x",function(){return that.})
+            })
+
+         d3.select("#year").html(currentYear);
+
+    }
+
+    update()
+
+    d3.select("#slider") 
+      // (1)
+        .call(
+          chroniton()  // (2)
+            .domain([new Date(startYear, 1, 1), new Date(startYear + (topologies.length - 1) * 10, 1, 1)])  // (3)
+            .labelFormat(function(date) {
+              return Math.ceil((date.getFullYear()) / 10) * 10;  // (4)
+            })
+            .width(600)  // (5)
+            .on('change', function(date) { // (1)
+              var newYear = Math.ceil((date.getFullYear()) / 10) * 10; // (2)
+              if (newYear != currentYear) { // (3)
+                currentYear = newYear;
+                svgStates.selectAll("path").remove(); // (4)
+                update(); // (5)
+              }
+            })
+            .playButton(true) // (6)
+            .playbackRate(0.2)
+            .loop(true)
+                    );
+  });
+</script>
+</body>
+</html>
